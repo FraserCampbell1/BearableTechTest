@@ -14,12 +14,13 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     languageOptions: { globals: globals.browser },
   },
-  tseslint.configs.recommended,
+  ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
     rules: {
       "react/react-in-jsx-scope": "off",
-      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "js/no-require-imports": "off",
     },
   },
 ]);
