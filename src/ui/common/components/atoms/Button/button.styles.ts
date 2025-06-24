@@ -4,14 +4,18 @@ import theme from "@/ui/common/styles/theme";
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
     alignItems: "center",
     minWidth: 50,
     paddingHorizontal: 12,
     paddingVertical: 8,
+    alignSelf: "center",
   },
   label: {
     color: theme.colors.white,
+  },
+
+  fillContainer: {
+    alignSelf: "stretch",
   },
 
   // -- variants --
