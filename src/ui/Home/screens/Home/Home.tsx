@@ -4,7 +4,6 @@ import useHomeController from "./home.controller";
 
 import styles from "./home.styles";
 import Text from "@/ui/common/components/atoms/Text/Text";
-import Pill from "@/ui/common/components/atoms/Pill/Pill";
 
 const HomeScreen = () => {
   const { isLoading } = useHomeController();
@@ -20,6 +19,9 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.contentContainer}>
+        <Text variant="primary500" style={styles.title}>
+          Home
+        </Text>
         <Text variant="primary300" style={styles.welcomeText}>
           Welcome to the Bearable Tech test
         </Text>
