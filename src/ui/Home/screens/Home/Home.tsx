@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator, SafeAreaView, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import useHomeController from "./home.controller";
 
 import styles from "./home.styles";
@@ -10,9 +10,9 @@ const HomeScreen = () => {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <ActivityIndicator />
-      </SafeAreaView>
+      </View>
     );
   }
 
