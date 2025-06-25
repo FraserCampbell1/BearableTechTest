@@ -42,7 +42,7 @@ export default function App() {
           name="Home"
           component={HomeScreen}
           options={{
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: ({ color }) => <HomeIcon fillColor={color} />,
           }}
         />

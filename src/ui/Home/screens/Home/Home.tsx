@@ -11,22 +11,20 @@ const HomeScreen = () => {
   if (isLoading) {
     return (
       <SafeAreaView style={styles.container}>
-        <ActivityIndicator style={styles.activityIndicator} />
+        <ActivityIndicator />
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.contentContainer}>
-        <Text variant="primary500" style={styles.title}>
-          Home
-        </Text>
-        <Text variant="primary300" style={styles.welcomeText}>
-          Welcome to the Bearable Tech test
-        </Text>
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text variant="primary500" style={styles.title}>
+        Home
+      </Text>
+      <Text variant="primary300" style={styles.welcomeText}>
+        Welcome to the Bearable Tech test
+      </Text>
+    </View>
   );
 };
 
