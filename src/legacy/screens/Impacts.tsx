@@ -1,10 +1,11 @@
-import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Impact } from '../../domain/models/Impact.model';
 import { useEffect, useState } from 'react';
 import { GetImpactsForActiveFactorsUseCase } from '../../domain/useCases/GetImpactsForActiveFactorsUseCase/GetImpactsForActiveFactors.useCase';
 import { OUTCOMES } from '../../domain/types/outcome';
 import { SortIcon } from '../../ui/Impacts/components/SortIcon';
 import { ImpactBar } from './components/ImpactBar';
+import Text from "@/ui/common/components/atoms/Text/Text";
 
 export default function Impacts() {
   const [isLoading, setIsLoading] = useState(true)
@@ -39,12 +40,14 @@ export default function Impacts() {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Impacts on Energy</Text>
+      <View style={styles.header}>
+        <Text variant="primary600" style={styles.title}>Energy</Text>
 
-      <TouchableOpacity onPress={toggleSortBy} style={styles.sortButton}>
-        <SortIcon />
-        <Text>{sortBy}</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={toggleSortBy} style={styles.sortButton}>
+          <Text variant="primary400">{sortBy}</Text>
+          <SortIcon />
+        </TouchableOpacity>
+      </View>
 
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
@@ -52,24 +55,24 @@ export default function Impacts() {
         <View style={styles.listContainer}>
           {sortedImpacts.map(impact => {
             const { factor, impact: impactValue, with: withValue, without: withoutValue } = impact
-            const impactColor = impactValue > 0 ? '#4CAF50' : '#F44336';
+            const impactColor = impactValue > 0 ? '#3BB7B0' : '#FF8787';
 
             return (
               <View key={factor.id} style={styles.factorItem}>
-                <View style={styles.moodContainer}>
-                  <Text style={styles.factorName}>{factor.name}</Text>
-                  <Text style={[styles.impactText, { color: impactColor }]}>
+                <View style={styles.row}>
+                  <Text variant="primary500" style={styles.factorName}>{factor.name}</Text>
+                  <Text variant="primary700" style={[styles.impactText, { color: impactColor }]}>
                     {impactValue > 0 ? '+' : ''}{impactValue.toFixed(0)}%
                   </Text>
                 </View>
 
                 <ImpactBar impact={impactValue} maxImpact={maxImpact} />
-                
-                <View style={styles.moodContainer}>
-                  <Text style={styles.moodText}>
+
+                <View style={styles.row}>
+                  <Text variant="primary400" style={styles.valueText}>
                     With: {withValue.toFixed(1)}
                   </Text>
-                  <Text style={styles.moodText}>
+                  <Text variant="primary400" style={styles.valueText}>
                     Without: {withoutValue.toFixed(1)}
                   </Text>
                 </View>
@@ -88,16 +91,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 16,
+  },
+  title: {
+    fontSize: 20,
   },
   sortButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 8,
+    gap: 4,
   },
   listContainer: {
     flex: 1,
@@ -109,20 +115,18 @@ const styles = StyleSheet.create({
     borderBottomColor: '#E0E0E0',
   },
   factorName: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 16,
   },
-  moodContainer: {
+  row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  moodText: {
-    fontSize: 16,
+  valueText: {
+    fontSize: 14,
     color: '#666',
   },
   impactText: {
     fontSize: 16,
-    fontWeight: '600',
   },
 }); 

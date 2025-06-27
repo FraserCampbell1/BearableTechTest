@@ -10,7 +10,7 @@ export const ImpactBar: React.FC<ImpactBarProps> = ({ impact, maxImpact }) => {
   // Clamp the fill ratio between 0 and 1
   const fillRatio = Math.min(Math.abs(impact), maxImpact) / maxImpact;
   const isPositive = impact >= 0;
-  const fillColor = isPositive ? '#4CAF50' : '#F44336';
+  const fillColor = isPositive ? '#3BB7B0' : '#FF8787';
 
   // Fill style: width is fillRatio * 50% (since center is 0, full bar is ±maxImpact)
   // The bar is split in half: left for negative, right for positive
