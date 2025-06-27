@@ -1,21 +1,23 @@
-import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Impact } from '../../domain/models/Impact.model';
 import { useEffect, useState } from 'react';
 import { GetImpactsForActiveFactorsUseCase } from '../../domain/useCases/GetImpactsForActiveFactorsUseCase/GetImpactsForActiveFactors.useCase';
 import { OUTCOMES } from '../../domain/types/outcome';
+import { SortIcon } from '../../ui/Impacts/components/SortIcon';
+import { ImpactBar } from './components/ImpactBar';
 
 export default function Impacts() {
   const [isLoading, setIsLoading] = useState(true)
-  const [sortBy, setSortBy] = useState<'best' | 'worst'>('best')
+  const [sortBy, setSortBy] = useState<'Best' | 'Worst'>('Best')
   const [impacts, setImpacts] = useState<Impact[]>([])
 
   const toggleSortBy = () => {
-    setSortBy(prev => prev === 'best' ? 'worst' : 'best')
+    setSortBy(prev => prev === 'Best' ? 'Worst' : 'Best')
   }
 
   const getImpacts = async () => {
     const impactsResult = await new GetImpactsForActiveFactorsUseCase().execute({
-      outcome: OUTCOMES.MOOD,
+      outcome: OUTCOMES.ENERGY,
     })
     if (impactsResult.success) {
       setImpacts(impactsResult.value)
@@ -27,9 +29,9 @@ export default function Impacts() {
     getImpacts()
   }, [])
 
+  const maxImpact = Math.max(...impacts.map(impact => Math.abs(impact.impact)))
   const sortedImpacts = impacts.sort((a, b) => {
-    // TODO - check this
-    if (sortBy === 'best') {
+    if (sortBy === 'Best') {
       return b.impact - a.impact
     }
     return a.impact - b.impact
@@ -37,10 +39,12 @@ export default function Impacts() {
 
   return (
     <ScrollView style={styles.container}>
-      <View>
-        <Text style={styles.title}>Mood Impact Factors</Text>
-        <Button title="Sort by" onPress={toggleSortBy} />
-      </View>
+      <Text style={styles.title}>Impacts on Energy</Text>
+
+      <TouchableOpacity onPress={toggleSortBy} style={styles.sortButton}>
+        <SortIcon />
+        <Text>{sortBy}</Text>
+      </TouchableOpacity>
 
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
@@ -52,7 +56,15 @@ export default function Impacts() {
 
             return (
               <View key={factor.id} style={styles.factorItem}>
-                <Text style={styles.factorName}>{factor.name}</Text>
+                <View style={styles.moodContainer}>
+                  <Text style={styles.factorName}>{factor.name}</Text>
+                  <Text style={[styles.impactText, { color: impactColor }]}>
+                    {impactValue > 0 ? '+' : ''}{impactValue.toFixed(0)}%
+                  </Text>
+                </View>
+
+                <ImpactBar impact={impactValue} maxImpact={maxImpact} />
+                
                 <View style={styles.moodContainer}>
                   <Text style={styles.moodText}>
                     With: {withValue.toFixed(1)}
@@ -61,9 +73,6 @@ export default function Impacts() {
                     Without: {withoutValue.toFixed(1)}
                   </Text>
                 </View>
-                <Text style={[styles.impactText, { color: impactColor }]}>
-                  {impactValue > 0 ? '+' : ''}{impactValue.toFixed(1)}%
-                </Text>
               </View>
             );
           })}
@@ -84,23 +93,29 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 16,
   },
+  sortButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
+  },
   listContainer: {
     flex: 1,
   },
   factorItem: {
     padding: 16,
+    gap: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
   },
   factorName: {
     fontSize: 18,
     fontWeight: '600',
-    marginBottom: 8,
   },
   moodContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
+    alignItems: 'center',
   },
   moodText: {
     fontSize: 16,

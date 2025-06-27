@@ -1,4 +1,4 @@
-import { factorsConfig } from "../../../data/factorsConfig"
+import { getFactorsConfigs } from "../../../data/factorsConfig"
 import { Factor } from "../../models/Factor.model"
 import { Result } from "../../types/result"
 import { UseCase } from "../../types/useCase"
@@ -11,12 +11,12 @@ import { UseCase } from "../../types/useCase"
  */
 export class GetActiveFactorsUseCase implements GetActiveFactorsUseCaseInterface {
   constructor(
-    private readonly allFactors = factorsConfig,
+    private readonly getAllFactors = getFactorsConfigs,
   ) { }
 
   public async execute(): GetActiveFactorsUseCaseResult {
     try {
-      const factors = this.allFactors.map(factor => new Factor({
+      const factors = this.getAllFactors().map(factor => new Factor({
         id: factor.id,
         name: factor.name,
         on: true,
