@@ -4,7 +4,6 @@
  * timePeriodData - this shows whether the factor occurred at this point in time  
  * cumulativeData - this shows whether the factor occurred at or before this point in time
  * earliest - the earliest time the factor occurred
- * occurred - whether the factor occurred at any point in time
  */
 export const getFactorEntries = (): Record<string, any> => ({
   "20250101": {
@@ -22,7 +21,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 600,
-      occurred: true
     },
     "factor-9": {
       timePeriodData: {
@@ -38,7 +36,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 0,
-      occurred: true
     },
     "factor-10": {
       timePeriodData: {
@@ -54,7 +51,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 1800,
-      occurred: true
     },
   },
   "20250102": {
@@ -72,7 +68,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 600,
-      occurred: true
     },
     "factor-4": {
       timePeriodData: {
@@ -88,7 +83,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 1200,
-      occurred: true
     },
     "factor-9": {
       timePeriodData: {
@@ -104,7 +98,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 0,
-      occurred: true
     },
   },
   "20250103": {
@@ -122,7 +115,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 600,
-      occurred: true
     },
     "factor-7": {
       timePeriodData: {
@@ -138,7 +130,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 0,
-      occurred: true
     },
     "factor-9": {
       timePeriodData: {
@@ -154,7 +145,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 0,
-      occurred: true
     },
   },
   "20250104": {
@@ -172,7 +162,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 600,
-      occurred: true
     },
     "factor-7": {
       timePeriodData: {
@@ -188,7 +177,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 0,
-      occurred: true
     },
     "factor-9": {
       timePeriodData: {
@@ -204,7 +192,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 0,
-      occurred: true
     },
     "factor-10": {
       timePeriodData: {
@@ -221,7 +208,6 @@ export const getFactorEntries = (): Record<string, any> => ({
       },
       earliest: 600,
       entryType: "FACTOR_V2",
-      occurred: true
     },
   },
   "20250105": {
@@ -239,7 +225,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 600,
-      occurred: true
     },
     "factor-9": {
       timePeriodData: {
@@ -255,7 +240,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 0,
-      occurred: true
     },
     "factor-10": {
       timePeriodData: {
@@ -271,7 +255,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 600,
-      occurred: true
     },
   },
   "20250106": {
@@ -289,7 +272,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 0,
-      occurred: true
     },
     "factor-9": {
       timePeriodData: {
@@ -305,7 +287,6 @@ export const getFactorEntries = (): Record<string, any> => ({
         1800: true
       },
       earliest: 0,
-      occurred: true
     },
   },
 })

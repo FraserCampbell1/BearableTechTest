@@ -1,67 +1,108 @@
-This project was bootstrapped with [create-expo-app](https://docs.expo.dev/more/create-expo/).
+# Bearable Technical Test
 
-Below you'll find information about performing common tasks.
+Welcome to the Bearable tech test!
 
 ## Table of Contents
 
-* [Available Scripts](#available-scripts)
-  * [npm start](#npm-start)
-  * [npm test](#npm-test)
-  * [npm run ios](#npm-run-ios)
-  * [npm run android](#npm-run-android)
-  * [npm run eject](#npm-run-eject)
-* [Writing and Running Tests](#writing-and-running-tests)
-* [Environment Variables](#environment-variables)
+* [Setup](#setup)
+  * [Prerequisites](#prerequisites)
+  * [Install dependencies](#install-dependencies)
+  * [Run app](#run-app)
+  * [Run tests](#run-tests)
+* [Instructions](#instructions)
+  * [Mood entries](#mood-entries)
+  * [Bug fixing (Hard)](#bug-fixing-hard)
+* [Assessment Criteria](#assessment-criteria)
 
-## Available Scripts
+## Setup
 
-### `npm start`
+This project was bootstrapped with [create-expo-app](https://docs.expo.dev/more/create-expo/) so head to the website to get more detailed setup steps.
 
-Runs your app in development mode.
+### Prerequisites
 
-Open it in the [Expo app](https://expo.io) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
+Make sure you have the following available:
+- Node.js
+- NPM
 
-Sometimes you may need to reset or clear the React Native packager's cache. To do so, you can pass the `--reset-cache` flag to the start script:
+### Install dependencies
 
+To install the initial dependencies run the following:
+
+```bash
+npm install
 ```
-npm start --reset-cache
-# or
-yarn start --reset-cache
+
+### Run app
+
+To run the app in development mode you can use the following. Open it in the [Expo app](https://expo.io) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
+
+```bash
+npm start
 ```
 
-#### `npm test`
+If you want to use an iOS or Android simulator follow the [React Native setting up environment guide](https://reactnative.dev/docs/set-up-your-environment) and then you can use either `npm run ios` or `npm run android` instead of `npm start`.
 
-Runs the [jest](https://github.com/facebook/jest) test runner on your tests.
+### Run tests
 
-#### `npm run ios`
+This project is set up to use [jest](https://facebook.github.io/jest/) for tests and test files will have the `.test` extension. To run them use:
 
-Like `npm start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
+```bash
+npm test
+```
 
-#### `npm run android`
+## Instructions
 
-Like `npm start`, but also attempts to open your app on a connected Android device or emulator. Requires an installation of Android build tools (see [React Native docs](https://facebook.github.io/react-native/docs/getting-started.html) for detailed setup). We also recommend installing Genymotion as your Android emulator. Once you've finished setting up the native build environment, there are two options for making the right copy of `adb` available to Create React Native App:
+Please use your imagination and pretend this app is a cohesive early version of Bearable. Once you've followed the setup and have the app running you should see a Home screen which should be used for the new feature and an Impacts screen which shows the impacts data for energy and has some bugs to fix.
 
-##### Using Android Studio's `adb`
+### Mood entries 
 
-1. Make sure that you can run adb from your terminal.
-2. Open Genymotion and navigate to `Settings -> ADB`. Select “Use custom Android SDK tools” and update with your [Android SDK directory](https://stackoverflow.com/questions/25176594/android-sdk-location).
+**Aim**: Create the ability to add mood entries and display it's corresponding data based on the ACs below and the designs provided.
 
-##### Using Genymotion's `adb`
+Technical Requirements:
+1. React Native
+2. Typescript
+3. Redux (optional) - use what you feel would be the best solution to storing the data
+4. Submit in a non-public github repo (share with https://github.com/robcrossland1 and https://github.com/natbearable)
 
-1. Find Genymotion’s copy of adb. On macOS for example, this is normally `/Applications/Genymotion.app/Contents/MacOS/tools/`.
-2. Add the Genymotion tools directory to your path (instructions for [Mac](http://osxdaily.com/2014/08/14/add-new-path-to-path-command-line/), [Linux](http://www.computerhope.com/issues/ch001647.htm), and [Windows](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/)).
-3. Make sure that you can run adb from your terminal.
+Acceptance Criteria:
+1. On the Home screen create a mood data entry section at the top. There is no design provided, it is up to you what ways of entering data it uses. No need to get fancy, something simple and easy is best.
+  a. It would be great if it looks reasonably consistent with how the Bearable app generally looks.
+  b. The user should be able to add as many entries as they want.
+  c. Each entry includes a mood assessment from 1 to 5, as well as between 1 and 4 feelings chosen (see on the chart).
+  d. It should not include features like editing entries or removing them.
+  e. When you restart the app, the list of entries should reset, no persistence is required.
+2. Create the visualisation under the entry section following the design in [Figma](https://www.figma.com/design/vqCdRs2BwAa5tIUIG1DM3h/Software-Assessment---Bearable-App). You should be able to see on the design, the chart’s elements are:
+  a. The number of entries that include that feeling (figure on the right)
+  b. Bars whose lengths are based on the same figure as above. The feeling with the most entries uses the entire width of the chart area, the others use proportionally less.
+  c. Bars consist of segments that are colored based on mood assessments with that feeling. For instance, in the bar for “frustrated” on the left 5/6 of the length is orange and 1/6 is yellow, because the user has entered 5 mood entries assessed as orange and 1 assessed as yellow, all of which had the “frustrated” feeling selected.
+  d. The bars are sorted based on the number of entries with each feeling.
 
-#### `npm run eject`
+### Bug fixing (Hard)
 
-This will start the process of "ejecting" from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project.
+**Aim**: Use the mocked data and failing tests to understand and fix the bugs identified by the tester.
 
-**Warning:** Running eject is a permanent action (aside from whatever version control system you use). An ejected app will require you to have an [Xcode and/or Android Studio environment](https://facebook.github.io/react-native/docs/getting-started.html) set up.
+Notes:
+ - The data behind this is mock data.
+ - Energy ratings are based on a score out of 10
+ - Factor entries that are stored means the factor occurred at some point on that day.
+ - All tests written in the app should pass.
+ - See the [Figma designs](https://www.figma.com/design/vqCdRs2BwAa5tIUIG1DM3h/Software-Assessment---Bearable-App) for the correct impacts view
 
-## Writing and Running Tests
+The testers has raised the following:
+- The impacts are showing for factors that the user doesn't have active, only active factors should be shown
+- The impacts with/without and percentage aren't showing the right values. Impacts should show a percentage change between the with and without scores and should only display for a factor when there are at least 3 entries with and 3 entries without
 
-This project is set up to use [jest](https://facebook.github.io/jest/) for tests. You can configure whatever testing strategy you like, but jest works out of the box. Create test files in directories called `__tests__` or with the `.test` extension to have the files loaded by jest. See the [the template project](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/App.test.js) for an example test. The [jest documentation](https://facebook.github.io/jest/docs/en/getting-started.html) is also a wonderful resource, as is the [React Native testing tutorial](https://facebook.github.io/jest/docs/en/tutorial-react-native.html).
+## Assessment Criteria
 
-## Environment Variables
+Since Bearable is a large and complex codebase we want to see how you're able to deal with adding a new feature and fixing bugs. For senior candidates we expect more emphasis on the bug fixing.
 
-You can configure some of Create React Native App's behavior using environment variables.
+We ideally want you to spend no longer than 2 hours on this test so don't worry if you don't finish everything, feel free to share any notes or videos of your thinking or what you would do with more time.
+
+We will be looking for the following when assessing the test:
+- The code works
+- Passes manual testing
+- ACs and designs are closely matched (attention to detail)
+- Sensible UI decisions
+- Good software practices are followed
+- UI Performance considered
+- Ability to problem solve (even if bugs are not fixed showing thought process)
