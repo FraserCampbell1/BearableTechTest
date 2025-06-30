@@ -38,9 +38,11 @@ export default function App() {
           tabBarInactiveTintColor: "#C0BFC5",
           tabBarLabelStyle: {
             fontFamily: "Montserrat-Regular",
+            width: '100%',
           },
           headerTitleStyle: {
             fontFamily: "Montserrat-SemiBold",
+            width: '100%',
           },
         }}
       >
