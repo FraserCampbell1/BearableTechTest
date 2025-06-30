@@ -52,7 +52,9 @@ npm test
 
 ## Instructions
 
-Please use your imagination and pretend this app is a cohesive early version of Bearable. Once you've followed the setup and have the app running you should see a Home screen which should be used for the new feature and an Impacts screen which shows the impacts data for energy and has some bugs to fix.
+Please use your imagination and pretend this app is a cohesive early version of Bearable. Bearable is an app for a) recording data and b) visualising it.
+
+Once you've followed the setup and have the app running you should see a Home screen which should be used for the new feature and an Impacts screen which shows the impacts data for energy and has some bugs to fix.
 
 ### Mood entries 
 
