@@ -1,4 +1,11 @@
-export const factorsConfig = [
+/**
+ * This is mock data for factors config which is similar to the data used in the Bearable app.
+ * 
+ * id - the id of the factor
+ * name - the name of the factor
+ * on - whether the factor is active or not
+ */
+export const getFactorsConfigs = () => ([
   {
     id: 'factor-1',
     name: 'Yoga',
@@ -17,22 +24,22 @@ export const factorsConfig = [
   {
     id: 'factor-4',
     name: 'Stress',
-    on: false,
+    on: true,
   },
   {
     id: 'factor-5',
     name: 'Saw Friends',
-    on: true,
+    on: false,
   },
   {
     id: 'factor-6',
     name: 'Meditation',
-    on: true,
+    on: false,
   },
   {
     id: 'factor-7',
     name: 'Poor Sleep',
-    on: false,
+    on: true,
   },
   {
     id: 'factor-8',
@@ -49,4 +56,4 @@ export const factorsConfig = [
     name: 'Reading',
     on: true,
   },
-]
+])

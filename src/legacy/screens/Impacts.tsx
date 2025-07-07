@@ -1,21 +1,24 @@
-import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Impact } from '../../domain/models/Impact.model';
 import { useEffect, useState } from 'react';
 import { GetImpactsForActiveFactorsUseCase } from '../../domain/useCases/GetImpactsForActiveFactorsUseCase/GetImpactsForActiveFactors.useCase';
 import { OUTCOMES } from '../../domain/types/outcome';
+import { SortIcon } from '../../ui/Impacts/components/SortIcon';
+import { ImpactBar } from './components/ImpactBar';
+import Text from "@/ui/common/components/atoms/Text/Text";
 
 export default function Impacts() {
   const [isLoading, setIsLoading] = useState(true)
-  const [sortBy, setSortBy] = useState<'best' | 'worst'>('best')
+  const [sortBy, setSortBy] = useState<'Best' | 'Worst'>('Best')
   const [impacts, setImpacts] = useState<Impact[]>([])
 
   const toggleSortBy = () => {
-    setSortBy(prev => prev === 'best' ? 'worst' : 'best')
+    setSortBy(prev => prev === 'Best' ? 'Worst' : 'Best')
   }
 
   const getImpacts = async () => {
     const impactsResult = await new GetImpactsForActiveFactorsUseCase().execute({
-      outcome: OUTCOMES.MOOD,
+      outcome: OUTCOMES.ENERGY,
     })
     if (impactsResult.success) {
       setImpacts(impactsResult.value)
@@ -27,9 +30,9 @@ export default function Impacts() {
     getImpacts()
   }, [])
 
+  const maxImpact = Math.max(...impacts.map(impact => Math.abs(impact.impact)))
   const sortedImpacts = impacts.sort((a, b) => {
-    // TODO - check this
-    if (sortBy === 'best') {
+    if (sortBy === 'Best') {
       return b.impact - a.impact
     }
     return a.impact - b.impact
@@ -37,9 +40,13 @@ export default function Impacts() {
 
   return (
     <ScrollView style={styles.container}>
-      <View>
-        <Text style={styles.title}>Mood Impact Factors</Text>
-        <Button title="Sort by" onPress={toggleSortBy} />
+      <View style={styles.header}>
+        <Text variant="primary600" style={styles.title}>Energy</Text>
+
+        <TouchableOpacity onPress={toggleSortBy} style={styles.sortButton}>
+          <Text variant="primary400">{sortBy}</Text>
+          <SortIcon />
+        </TouchableOpacity>
       </View>
 
       {isLoading ? (
@@ -48,22 +55,27 @@ export default function Impacts() {
         <View style={styles.listContainer}>
           {sortedImpacts.map(impact => {
             const { factor, impact: impactValue, with: withValue, without: withoutValue } = impact
-            const impactColor = impactValue > 0 ? '#4CAF50' : '#F44336';
+            const impactColor = impactValue > 0 ? '#3BB7B0' : '#FF8787';
 
             return (
               <View key={factor.id} style={styles.factorItem}>
-                <Text style={styles.factorName}>{factor.name}</Text>
-                <View style={styles.moodContainer}>
-                  <Text style={styles.moodText}>
+                <View style={styles.row}>
+                  <Text variant="primary500" style={styles.factorName}>{factor.name}</Text>
+                  <Text variant="primary700" style={[styles.impactText, { color: impactColor }]}>
+                    {impactValue > 0 ? '+' : ''}{impactValue.toFixed(0)}%
+                  </Text>
+                </View>
+
+                <ImpactBar impact={impactValue} maxImpact={maxImpact} />
+
+                <View style={styles.row}>
+                  <Text variant="primary400" style={styles.valueText}>
                     With: {withValue.toFixed(1)}
                   </Text>
-                  <Text style={styles.moodText}>
+                  <Text variant="primary400" style={styles.valueText}>
                     Without: {withoutValue.toFixed(1)}
                   </Text>
                 </View>
-                <Text style={[styles.impactText, { color: impactColor }]}>
-                  {impactValue > 0 ? '+' : ''}{impactValue.toFixed(1)}%
-                </Text>
               </View>
             );
           })}
@@ -79,35 +91,42 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 16,
+  },
+  title: {
+    fontSize: 20,
+  },
+  sortButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   listContainer: {
     flex: 1,
   },
   factorItem: {
     padding: 16,
+    gap: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
   },
   factorName: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 8,
+    fontSize: 16,
   },
-  moodContainer: {
+  row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
+    alignItems: 'center',
   },
-  moodText: {
-    fontSize: 16,
+  valueText: {
+    fontSize: 14,
     color: '#666',
   },
   impactText: {
     fontSize: 16,
-    fontWeight: '600',
   },
 }); 

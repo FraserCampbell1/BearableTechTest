@@ -36,6 +36,14 @@ export default function App() {
         screenOptions={{
           tabBarActiveTintColor: "#000",
           tabBarInactiveTintColor: "#C0BFC5",
+          tabBarLabelStyle: {
+            fontFamily: "Montserrat-Regular",
+            width: '100%',
+          },
+          headerTitleStyle: {
+            fontFamily: "Montserrat-SemiBold",
+            width: '100%',
+          },
         }}
       >
         <Tab.Screen

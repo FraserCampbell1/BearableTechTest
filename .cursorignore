@@ -1,0 +1,4 @@
+# Hide test files and business requirements
+src/**/*.test.ts
+jest.config.js
+src/data/*.ts

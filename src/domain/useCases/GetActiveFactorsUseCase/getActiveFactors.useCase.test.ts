@@ -15,7 +15,7 @@ describe(GetActiveFactorsUseCase.name, () => {
       }
 
       // Act
-      const result = await new GetActiveFactorsUseCase(factorsConfig).execute()
+      const result = await new GetActiveFactorsUseCase(() => factorsConfig).execute()
 
       // Assert
       expect(result).toEqual(expectedResponse)
@@ -36,7 +36,7 @@ describe(GetActiveFactorsUseCase.name, () => {
       }
 
       // Act
-      const result = await new GetActiveFactorsUseCase(factorsConfig).execute()
+      const result = await new GetActiveFactorsUseCase(() => factorsConfig).execute()
 
       // Assert
       expect(result).toEqual(expectedResponse)

@@ -1,7 +1,7 @@
 export const OUTCOMES = {
-  MOOD: 'mood',
-  SLEEP: 'sleep',
-  ENERGY: 'energy',
+  MOOD: 'MOOD',
+  SLEEP: 'SLEEP',
+  ENERGY: 'ENERGY',
 } as const
 
 export type Outcome = (typeof OUTCOMES)[keyof typeof OUTCOMES]

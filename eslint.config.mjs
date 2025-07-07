@@ -15,10 +15,26 @@ export default defineConfig([
     languageOptions: { globals: globals.browser },
   },
   ...tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
+  {
+    files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
+    plugins: {
+      react: pluginReact,
+    },
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+      },
+    },
+  },
   {
     rules: {
       "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-require-imports": "off",
       "js/no-require-imports": "off",
     },
