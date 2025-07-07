@@ -8,6 +8,7 @@ import HomeScreen from "./Home/screens/Home/Home";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { Dimensions } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,11 +39,11 @@ export default function App() {
           tabBarInactiveTintColor: "#C0BFC5",
           tabBarLabelStyle: {
             fontFamily: "Montserrat-Regular",
-            width: '100%',
+            width: "100%",
           },
           headerTitleStyle: {
             fontFamily: "Montserrat-SemiBold",
-            width: '100%',
+            width: Dimensions.get("window").width,
           },
         }}
       >
@@ -50,7 +51,7 @@ export default function App() {
           name="Home"
           component={HomeScreen}
           options={{
-            headerShown: true,
+            headerShown: false,
             tabBarIcon: ({ color }) => <HomeIcon fillColor={color} />,
           }}
         />

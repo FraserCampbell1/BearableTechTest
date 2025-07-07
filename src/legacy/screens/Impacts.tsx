@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 16,
+    paddingHorizontal: 18,
+    paddingVertical: 16,
   },
   header: {
     flexDirection: 'row',
@@ -107,9 +108,11 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
+    paddingBottom: 40,
   },
   factorItem: {
-    padding: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 12,
     gap: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
