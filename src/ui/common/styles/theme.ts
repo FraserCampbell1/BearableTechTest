@@ -7,6 +7,7 @@ const theme = {
     verdigris: "#3BB7B0",
     white: "#FFFFFF",
     black: "#000000",
+    grey: "#808080",
   },
 };
 

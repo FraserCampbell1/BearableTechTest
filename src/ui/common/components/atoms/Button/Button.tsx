@@ -3,12 +3,18 @@ import { Pressable, StyleProp, ViewStyle } from "react-native";
 
 import styles from "./button.styles";
 import Text from "../Text/Text";
+import theme from "@/ui/common/styles/theme";
 
 type ButtonProps = {
-  variant: "simple";
-  color: "primary";
+  variant: "simple" | "square";
+  color: string;
+  textColor?: string;
+  textSize?: number;
+  borderColor?: string;
+  borderRadius?: "small" | "medium" | "large";
   onPress: () => void;
   fillContainer?: boolean;
+  disabled?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   children: React.ReactNode;
 };
@@ -16,22 +22,30 @@ type ButtonProps = {
 const Button = ({
   variant,
   color,
+  textColor,
+  textSize,
+  borderColor,
+  borderRadius,
   onPress,
   fillContainer,
+  disabled,
   containerStyle,
   children,
 }: ButtonProps) => (
   <Pressable
-    onPress={onPress}
+    onPress={disabled ? undefined : onPress}
+    disabled={disabled}
     style={[
       styles.container,
       styles[variant],
-      styles[color],
+      borderRadius && styles[`${borderRadius}BorderRadius`],
+      { backgroundColor: color, borderColor: borderColor || color },
       fillContainer && styles.fillContainer,
       containerStyle,
+      disabled && styles.disabled,
     ]}
   >
-    <Text variant="primary500" style={styles.label}>
+    <Text variant="primary500" style={{ color: textColor || theme.colors.white, fontSize: textSize }}>
       {children}
     </Text>
   </Pressable>

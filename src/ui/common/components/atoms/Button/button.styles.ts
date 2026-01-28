@@ -9,25 +9,38 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
     alignSelf: "center",
-  },
-  label: {
-    color: theme.colors.white,
+    borderWidth: 1,
   },
 
   fillContainer: {
     alignSelf: "stretch",
   },
 
-  // -- variants --
-  simple: {
-    backgroundColor: theme.colors.white,
-    borderRadius: 30,
-    paddingHorizontal: 16,
+  disabled: {
+    opacity: 0.5,
   },
 
-  // -- colors --
-  primary: {
-    backgroundColor: theme.colors.verdigris,
+  // -- variants --//
+  simple: {
+    backgroundColor: theme.colors.white,
+    paddingHorizontal: 12,
+  },
+  square: {
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  // -- border radii --//
+  smallBorderRadius: {
+    borderRadius: 10,
+  },
+  mediumBorderRadius: {
+    borderRadius: 15,
+  },
+  largeBorderRadius: {
+    borderRadius: 30,
   },
 });
 
