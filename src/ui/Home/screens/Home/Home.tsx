@@ -1,12 +1,24 @@
 import React from "react";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, SafeAreaView, ScrollView, View } from "react-native";
 import useHomeController from "./home.controller";
 
 import styles from "./home.styles";
-import Text from "@/ui/common/components/atoms/Text/Text";
+import MoodEntryInput from "../../components/MoodEntryInput";
+import MoodEntriesList from "../../components/MoodEntriesList";
 
 const HomeScreen = () => {
-  const { isLoading } = useHomeController();
+  const {
+    addMoodEntry,
+    feelingSummaries,
+    isLoading,
+    maxFeelingCount,
+    selectedFeelings,
+    selectedMood,
+    setSelectedMood,
+    toggleFeeling,
+  } = useHomeController();
+
+  const isAddEntryDisabled = !selectedMood || selectedFeelings.length === 0;
 
   if (isLoading) {
     return (
@@ -17,14 +29,22 @@ const HomeScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text variant="primary500" style={styles.title}>
-        Home
-      </Text>
-      <Text variant="primary300" style={styles.welcomeText}>
-        Welcome to the Bearable Tech test
-      </Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <MoodEntryInput
+          selectedMood={selectedMood}
+          selectedFeelings={selectedFeelings}
+          onMoodSelect={setSelectedMood}
+          onFeelingToggle={toggleFeeling}
+          onAddEntry={addMoodEntry}
+          isAddEntryDisabled={isAddEntryDisabled}
+        />
+        <MoodEntriesList
+          feelingSummaries={feelingSummaries}
+          maxFeelingCount={maxFeelingCount}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

@@ -1,19 +1,17 @@
 import { StyleSheet } from "react-native";
 
+import theme from "@/ui/common/styles/theme";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: theme.colors.white,
   },
-  title: {
-    fontSize: 16,
-    width: "100%",
-    textAlign: "center",
-  },
-  welcomeText: {
-    fontSize: 16,
-    width: "100%",
-    textAlign: "center",
+  content: {
+    paddingHorizontal: 18,
+    paddingTop: 16,
+    paddingBottom: 32,
+    gap: 16,
   },
 });
 
