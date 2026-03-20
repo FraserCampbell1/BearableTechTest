@@ -30,8 +30,10 @@ export default function Impacts() {
     getImpacts()
   }, [])
 
-  const maxImpact = Math.max(...impacts.map(impact => Math.abs(impact.impact)))
-  const sortedImpacts = impacts.sort((a, b) => {
+  // Bug fix: filter out impacts with low data
+  const impactsWithEnoughData = impacts.filter(impact => !impact.hasLowData);
+  const maxImpact = Math.max(...impactsWithEnoughData.map(impact => Math.abs(impact.impact)))
+  const sortedImpacts = impactsWithEnoughData.sort((a, b) => {
     if (sortBy === 'Best') {
       return b.impact - a.impact
     }

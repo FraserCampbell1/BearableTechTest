@@ -36,8 +36,9 @@ export class GetImpactsForActiveFactorsUseCase implements GetImpactsForActiveFac
     const entriesForFactors = this.getFactorEntries()
 
     const impactValues = factorsResult.value.map(factor => {
+      const entriesForFactor = this.getEntriesForFactor(entriesForFactors, factor.id);
       // Get array of values that count towards with and without scores
-      const { withValues, withoutValues } = this.calculateWithAndWithoutValues(entriesForOutcome, entriesForFactors)
+      const { withValues, withoutValues } = this.calculateWithAndWithoutValues(entriesForOutcome, entriesForFactor);
 
       // Calculate the overall with and without scores
       const scoreWith = this.calculateScore(withValues)
@@ -66,6 +67,26 @@ export class GetImpactsForActiveFactorsUseCase implements GetImpactsForActiveFac
         error: error as Error,
       }
     }
+  }
+
+  /**
+   * @description Selects a single factor's entries keyed by date
+   *
+   * @param factorEntries - all factor entry data keyed by date, then factor id
+   * @param factorId - id of the factor to select entries for
+   * @returns factor entry data keyed by date
+   */
+  private getEntriesForFactor(
+    factorEntries: Record<string, any>,
+    factorId: string,
+  ): Record<string, any> {
+    return Object.entries(factorEntries).reduce<Record<string, any>>((entriesByDate, [dateKey, dayEntries]) => {
+      if (dayEntries?.[factorId]) {
+        entriesByDate[dateKey] = dayEntries[factorId]
+      }
+
+      return entriesByDate
+    }, {})
   }
 
   /**

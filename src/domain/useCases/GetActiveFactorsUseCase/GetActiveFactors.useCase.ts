@@ -16,11 +16,13 @@ export class GetActiveFactorsUseCase implements GetActiveFactorsUseCaseInterface
 
   public async execute(): GetActiveFactorsUseCaseResult {
     try {
+      // bug fix: don't hard-code on: true for all factors, get this from the factor object
+      // Filter out to only return factors where on === true
       const factors = this.getAllFactors().map(factor => new Factor({
         id: factor.id,
         name: factor.name,
-        on: true,
-      }))
+        on: factor.on,
+      })).filter(factor => factor.on === true)
 
       return {
         success: true,
